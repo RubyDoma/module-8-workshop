@@ -41,3 +41,15 @@ jobs:
     - name: Push
       run: docker push rubydoma/module-8
 
+  heroku:
+    runs-on: ubuntu-latest
+    needs: dockerhub
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKUAPI}}
+          heroku_app_name: "module8-corndel" #Must be unique in Heroku
+          heroku_email: "ruby.domanico@kpmg.co.uk"
+          usedocker: true
+
